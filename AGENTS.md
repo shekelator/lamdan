@@ -1,60 +1,45 @@
 # AGENTS.md
 
-Project instructions for coding agents working in this repository. The file is named `AGENTS.md` per the emerging cross-tool convention; tools that look for other filenames (e.g. Claude Code's `CLAUDE.md`) find the same content via symlink or adapter file.
+Project instructions for coding agents working in this repository. The file is named `AGENTS.md` per the emerging cross-tool convention; tools that look for other filenames (e.g. Claude Code's `CLAUDE.md`) find the same content via symlink — `CLAUDE.md` is a symlink to this file.
 
-## Repository Purpose
+## Repository
 
-This is the **Linked-Intent Development (LID)** project — a methodology for keeping intent and code coherent in agentic codebases. The repo ships:
+Lamdan is a static, client-side **source-sheet web app** (Vite + React 19 + TypeScript) for browsing and reading Markdown/HTML learning sheets with topic/tag search and bilingual (English/Hebrew, RTL/LTR) support. The only application lives in `apps/sheets-web/`. `docs/` holds the Linked-Intent Development (LID) design tree. The build output is static-host deployable (CloudFront or equivalent).
 
-- The methodology itself (this document plus `docs/`).
-- **Two Claude Code plugins** under `plugins/` — richest integration, with auto-invoking skills and slash commands.
-- Rule-file adapters for other agentic coding tools (Cursor, Windsurf, GitHub Copilot, Aider, Continue, JetBrains Junie, Zed, Codex, and any tool that reads `AGENTS.md`). See `docs/setup.md` for per-tool setup.
+> App-specific commands, module flow, and directory detail live in **`apps/sheets-web/CLAUDE.md`** — read it before working in the app. This file covers repo-level conventions, architecture, and the LID workflow.
 
-There is no build system, test suite, or application code. The repo is simultaneously the distribution source for the plugins and the canonical LID-on-LID reference — its own `docs/` tree is LID applied to LID.
+## Commands
 
-## Structure
+All commands run from the repo root against the app in `apps/sheets-web` (mirrors `README.md`):
 
-- **`plugins/`**: Two installable Claude Code plugins
-  - **`linked-intent-dev/`**: Core LID workflow skill (`/linked-intent-dev`), configuration skill (`/update-lid`), and principle-review coach (`/lid-coach`)
-  - **`arrow-maintenance/`**: Arrow tracking overlay + `/map-codebase` command for brownfield bootstrap
-- **`.claude-plugin/marketplace.json`**: Claude Code plugin manifest (technical file — users install via `/plugin marketplace add jszmajda/lid`)
-- **`docs/setup.md`**: Per-tool setup instructions for non-Claude-Code agents
-- **`docs/`**: The HLD, LLDs, and EARS specs that define the project
-
-## Plugin Architecture (Claude Code)
-
-Users install via:
-
-```
-/plugin marketplace add jszmajda/lid
-/plugin install linked-intent-dev@jszmajda-lid
-/plugin install arrow-maintenance@jszmajda-lid
+```bash
+npm install --prefix apps/sheets-web
+npm run dev      --prefix apps/sheets-web      # Vite dev server
+npm run build    --prefix apps/sheets-web      # tsc -b && vite build (static-host deployable)
+npm run preview  --prefix apps/sheets-web      # preview the production build
+npm run lint     --prefix apps/sheets-web      # eslint .
+npm run test     --prefix apps/sheets-web      # vitest watch
+npm run test:run --prefix apps/sheets-web      # vitest run (single pass)
 ```
 
-The plugins form a layered system:
+Run a single test file or test name:
 
-1. **linked-intent-dev** is the core workflow — consult for ALL code changes. Every change walks the full arrow (HLD → LLD → EARS → Tests → Code) with a stop at each phase boundary. Bug fixes walk the same arrow — find where intent diverged and cascade from there; no short-circuit. Fresh projects start with `/linked-intent-dev` + a description of what to build (the workflow bootstraps LID inline). Established projects use `/update-lid` to reconcile drift, change modes, or refresh conventions.
+```bash
+npm run test:run --prefix apps/sheets-web -- src/lib/filterSheets.test.ts
+npm run test:run --prefix apps/sheets-web -- -t "filters by topic"
+```
 
-2. **arrow-maintenance** overlays on top — adds navigation (`index.yaml`) and tracking (arrow docs) for projects too large to hold in one context window. Includes `/map-codebase` for brownfield codebase mapping.
+Tests use Vitest with jsdom (`vite.config.ts` → `test.environment: 'jsdom'`, globals on, setup in `src/test/setup.ts`).
 
-Both LID plugins use EARS (Easy Approach to Requirements Syntax) for specifications with path-concatenated IDs (an ID is the root-to-leaf path through the design tree — `FEATURE-NNN` flat, extending one segment per level as intent nests, e.g. `PEVAL-RUN-014`), `@spec` code annotations, and status markers (`[x]` implemented, `[ ]` gap, `[D]` deferred).
+## Architecture
 
-## Other Agentic Coding Tools
+Static, backend-less data flow, all in the browser:
 
-LID works with any agent that can read per-project instructions. Tools without auto-invoking skills rely on the agent reading this file (or an adapter that points here) on every task. See `docs/setup.md` for the exact adapter file and location per tool.
+1. **Catalog load** — `App.tsx` fetches `/data/sheets/catalog.json` (a static JSON array of `SheetSummary` entries; see `src/types.ts`). Each entry points to a content file under `public/data/sheets/`.
+2. **Filter** — `src/lib/filterSheets.ts` narrows the catalog by query/topic/tag. Pure logic, fully unit-tested.
+3. **Render** — selecting a sheet fetches its raw file and `src/lib/renderSheet.ts` processes it: Markdown via `marked`, HTML passed through, then **all output sanitized with `dompurify`**. Direction (`ltr`/`rtl`) is auto-detected from Hebrew content or the sheet's `preferredDirection`.
 
-The methodology is identical across tools — only the invocation differs. Claude Code's plugins automate phase gates; elsewhere the agent follows the same workflow by reading this file.
-
-## Editing Guidelines
-
-- Each plugin lives in `plugins/<name>/` with `.claude-plugin/plugin.json` manifest
-- Skills follow the SKILL.md frontmatter format (`name`, `description` in YAML front matter)
-- The skill `description` field is critical — it determines when Claude Code auto-invokes the skill. Use specific trigger words, not vague descriptions
-- Reference templates live in `references/` subdirectories within each skill
-
-## LID
-- Mode: Full
-- Version: 1.3.0
+Two-pane layout (catalog + reader) on desktop (>900px), stacked on mobile — driven by CSS, verified manually (specs `SHEETS-WEB-002/003`). Filtering and rendering logic is deliberately decoupled from React components in `src/lib/` so it can be tested without the DOM where possible.
 
 ## Linked-Intent Development (MANDATORY)
 
@@ -79,14 +64,16 @@ HLD → LLDs → EARS → Tests → Code
 | High-level design | `docs/high-level-design.md` |
 | Design tree (HLD's children: sub-HLDs, LLDs, their specs) | `docs/intent/` — one folder per node |
 | EARS specs | `{node}-specs.md` beside each design doc in `docs/intent/` |
+| Spec-to-test traceability | `docs/intent/sheets-web/spec-test-matrix.md` |
 | Decision docs | `docs/decisions/` (project-level) and `docs/intent/<segment>/decisions/` |
 | Arrow of intent overlay | `docs/arrows/index.yaml` and per-segment docs in `docs/arrows/` |
-| Setup for other tools | `docs/setup.md` |
+
+The app node is `docs/intent/sheets-web/`, with sub-nodes `catalog-search/` and `reader-ui/`.
 
 ### Terminology
 
 - **HLD / LLD / sub-HLD**: the design layer is a recursive tree — the HLD is the root, leaf LLDs own EARS, and a component with internal depth becomes a sub-HLD (HLD-shaped, grouping child LLDs). "HLD" and "LLD" are roles by position; depth-2 (one HLD over flat LLDs) is the default. Design docs live in `docs/intent/`
-- **EARS**: Easy Approach to Requirements Syntax — structured requirements living beside each design doc as `{node}-specs.md` in the node's folder under `docs/intent/`, with path-concatenated IDs. Markers: `[x]` implemented, `[ ]` active gap, `[D]` deferred
+- **EARS**: Easy Approach to Requirements Syntax — structured requirements living beside each design doc as `{node}-specs.md` in the node's folder under `docs/intent/`, with path-concatenated IDs (root-to-leaf, e.g. `SHEETS-WEB-001`, `SHEETS-CAT-001`, `SHEETS-READ-001`). Markers: `[x]` implemented, `[ ]` active gap, `[D]` deferred
 - **Decision doc**: a standalone record of a decision that stays *live* for a cold reader of the landed result (rare), in a node's `decisions/` directory; owns no EARS and carries no status (presence is acceptance)
 - **Arrow**: A traced dependency from HLD through code, tracked in `docs/arrows/`
 
@@ -95,7 +82,11 @@ HLD → LLDs → EARS → Tests → Code
 Annotate code with `@spec` comments linking to EARS IDs:
 
 ```
-// @spec AUTH-UI-001, AUTH-UI-002
+// @spec SHEETS-WEB-001, SHEETS-READ-002
 ```
 
-Test files also reference specs for traceability.
+Place the annotation at the entry point of the behavior's implementation graph, not on every helper. Test files reference the same IDs for traceability, and the spec-test-matrix maps each ID to its verifying test.
+
+## LID
+- Mode: Full
+- Version: 1.3.0
