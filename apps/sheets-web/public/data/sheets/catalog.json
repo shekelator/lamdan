@@ -1,0 +1,35 @@
+[
+  {
+    "id": "justice-and-mercy",
+    "title": "Justice and Mercy",
+    "summary": "Texts on balancing דין and רחמים in leadership and community life.",
+    "topics": ["Ethics", "Leadership"],
+    "tags": ["middot", "community", "teshuvah"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "markdown",
+    "filePath": "/data/sheets/justice-and-mercy.md",
+    "preferredDirection": "mixed"
+  },
+  {
+    "id": "shabbat-lights",
+    "title": "Shabbat Lights",
+    "summary": "A practical and reflective sheet on welcoming Shabbat through light.",
+    "topics": ["Shabbat", "Practice"],
+    "tags": ["ritual", "home", "preparation"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/shabbat-lights.html",
+    "preferredDirection": "mixed"
+  },
+  {
+    "id": "gratitude-everyday",
+    "title": "Everyday Gratitude",
+    "summary": "Short morning and evening sources that cultivate daily gratitude.",
+    "topics": ["Prayer", "Mindfulness"],
+    "tags": ["brachot", "daily", "focus"],
+    "languageSupport": ["english"],
+    "format": "markdown",
+    "filePath": "/data/sheets/gratitude-everyday.md",
+    "preferredDirection": "ltr"
+  }
+]
