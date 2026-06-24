@@ -11,7 +11,7 @@ describe('renderSheet', () => {
     expect(result.direction).toBe('ltr')
   })
 
-  // @spec SHEETS-READ-003
+  // @spec SHEETS-WEB-004, SHEETS-READ-003
   it('chooses rtl direction when Hebrew text appears', async () => {
     const result = await renderSheet('<p>שלום עולם</p>', 'html')
 

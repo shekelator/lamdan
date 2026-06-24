@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import DiscoveryView from './components/DiscoveryView'
+import ReaderView from './components/ReaderView'
 import { filterSheets } from './lib/filterSheets'
-import { renderSheet } from './lib/renderSheet'
-import type { RenderedSheet, SheetSummary } from './types'
+import { pickRandomSheet } from './lib/pickRandom'
+import type { SheetSummary } from './types'
 
 function App() {
   const [catalog, setCatalog] = useState<SheetSummary[]>([])
@@ -12,10 +15,11 @@ function App() {
   const [topic, setTopic] = useState('all')
   const [tag, setTag] = useState('all')
 
-  const [selectedSheetId, setSelectedSheetId] = useState<string | null>(null)
-  const [renderedSheet, setRenderedSheet] = useState<RenderedSheet | null>(null)
-  const [sheetLoading, setSheetLoading] = useState(false)
-  const [sheetError, setSheetError] = useState<string | null>(null)
+  const [notFoundId, setNotFoundId] = useState<string | null>(null)
+  const [discoveryScroll, setDiscoveryScroll] = useState(0)
+
+  const navigate = useNavigate()
+  const location = useLocation()
 
   // @spec SHEETS-WEB-001
   useEffect(() => {
@@ -53,11 +57,6 @@ function App() {
     }
   }, [])
 
-  const selectedSheet = useMemo(
-    () => catalog.find((sheet) => sheet.id === selectedSheetId) ?? null,
-    [catalog, selectedSheetId],
-  )
-
   const topicOptions = useMemo(() => {
     return Array.from(new Set(catalog.flatMap((sheet) => sheet.topics))).sort((a, b) =>
       a.localeCompare(b),
@@ -65,174 +64,90 @@ function App() {
   }, [catalog])
 
   const tagOptions = useMemo(() => {
-    return Array.from(new Set(catalog.flatMap((sheet) => sheet.tags))).sort((a, b) => a.localeCompare(b))
+    return Array.from(
+      new Set(catalog.flatMap((sheet) => sheet.tags)),
+    ).sort((a, b) => a.localeCompare(b))
   }, [catalog])
 
   const filteredSheets = useMemo(() => {
-    return filterSheets(catalog, {
-      query,
-      topic,
-      tag,
-    })
+    return filterSheets(catalog, { query, topic, tag })
   }, [catalog, query, topic, tag])
 
-  // @spec SHEETS-READ-001, SHEETS-READ-004
+  // @spec SHEETS-VS-005
+  // Restore the saved Discovery scroll position after returning to "/".
   useEffect(() => {
-    let isActive = true
-
-    const loadSheet = async () => {
-      if (!selectedSheet) {
-        setRenderedSheet(null)
-        setSheetError(null)
-        return
-      }
-
-      setSheetLoading(true)
-      setSheetError(null)
-
-      try {
-        const response = await fetch(selectedSheet.filePath)
-        if (!response.ok) {
-          throw new Error('Unable to load the selected sheet.')
-        }
-
-        const rawContent = await response.text()
-        const rendered = await renderSheet(
-          rawContent,
-          selectedSheet.format,
-          selectedSheet.preferredDirection,
-        )
-
-        if (isActive) {
-          setRenderedSheet(rendered)
-        }
-      } catch {
-        if (isActive) {
-          setSheetError('This sheet could not be rendered.')
-          setRenderedSheet(null)
-        }
-      } finally {
-        if (isActive) {
-          setSheetLoading(false)
-        }
-      }
+    if (location.pathname !== '/') {
+      return
     }
 
-    void loadSheet()
+    const saved = discoveryScroll
+    const frame = requestAnimationFrame(() => window.scrollTo(0, saved))
+    return () => cancelAnimationFrame(frame)
+  }, [location.pathname, discoveryScroll])
 
-    return () => {
-      isActive = false
+  const captureScrollAndNavigate = (path: string) => {
+    setDiscoveryScroll(window.scrollY)
+    navigate(path)
+  }
+
+  const openSheet = (id: string) => captureScrollAndNavigate(`/s/${id}`)
+
+  // @spec SHEETS-VS-006
+  const pickRandom = () => {
+    const picked = pickRandomSheet(filteredSheets)
+    if (picked) {
+      captureScrollAndNavigate(`/s/${picked.id}`)
     }
-  }, [selectedSheet])
+  }
+
+  const goHome = () => navigate('/')
+
+  const markNotFound = (id: string) => {
+    setNotFoundId(id)
+    navigate('/')
+  }
+
+  const clearNotFound = () => setNotFoundId(null)
 
   return (
-    <div className="app-shell">
-      <header className="masthead">
-        <p className="eyebrow">Source Sheet Library</p>
-        <h1>Find the right sheet for today&apos;s learning.</h1>
-        <p className="lead">
-          Browse by topic and tags, then read beautifully rendered Markdown or HTML sheets on any
-          device.
-        </p>
-      </header>
-
-      <main className="layout" aria-busy={catalogLoading || sheetLoading}>
-        <aside className="catalog-panel">
-          <div className="search-controls">
-            <label htmlFor="sheet-search">Search</label>
-            <input
-              id="sheet-search"
-              type="search"
-              placeholder="Search by title, summary, topic, or tag"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-
-            <label htmlFor="topic-filter">Topic</label>
-            <select
-              id="topic-filter"
-              value={topic}
-              onChange={(event) => setTopic(event.target.value)}
-            >
-              <option value="all">All topics</option>
-              {topicOptions.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="tag-filter">Tag</label>
-            <select id="tag-filter" value={tag} onChange={(event) => setTag(event.target.value)}>
-              <option value="all">All tags</option>
-              {tagOptions.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {catalogError && <p className="status status-error">{catalogError}</p>}
-          {catalogLoading && <p className="status">Loading catalog...</p>}
-
-          {!catalogLoading && !catalogError && filteredSheets.length === 0 && (
-            <p className="status">No sheets matched your filters. Try another topic, tag, or search term.</p>
-          )}
-
-          <ul className="sheet-list">
-            {filteredSheets.map((sheet) => {
-              const isActive = selectedSheetId === sheet.id
-
-              return (
-                <li key={sheet.id}>
-                  <button
-                    type="button"
-                    className={`sheet-card ${isActive ? 'sheet-card-active' : ''}`}
-                    onClick={() => setSelectedSheetId(sheet.id)}
-                  >
-                    <h2>{sheet.title}</h2>
-                    <p>{sheet.summary}</p>
-                    <p className="meta">
-                      Topic: {sheet.topics.join(', ')} | Tags: {sheet.tags.join(', ')}
-                    </p>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </aside>
-
-        <section className="reader-panel">
-          {!selectedSheet && (
-            <div className="reader-placeholder">
-              Select a source sheet to begin reading. Your selection will render with bilingual-
-              friendly typography.
-            </div>
-          )}
-
-          {selectedSheet && sheetLoading && <p className="status">Loading sheet content...</p>}
-          {selectedSheet && sheetError && <p className="status status-error">{sheetError}</p>}
-
-          {selectedSheet && renderedSheet && !sheetLoading && !sheetError && (
-            <article className="sheet-reader">
-              <header className="sheet-reader-header">
-                <h2>{selectedSheet.title}</h2>
-                <p>
-                  {selectedSheet.topics.join(', ')} | {selectedSheet.tags.join(', ')}
-                </p>
-              </header>
-              <div
-                className="sheet-content"
-                dir={renderedSheet.direction}
-                // @spec SHEETS-WEB-004, SHEETS-READ-002, SHEETS-READ-003
-                dangerouslySetInnerHTML={{ __html: renderedSheet.html }}
-              />
-            </article>
-          )}
-        </section>
-      </main>
-    </div>
+    // @spec SHEETS-WEB-003, SHEETS-VS-001, SHEETS-VS-003
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <DiscoveryView
+            catalog={catalog}
+            filteredSheets={filteredSheets}
+            query={query}
+            topic={topic}
+            tag={tag}
+            topicOptions={topicOptions}
+            tagOptions={tagOptions}
+            catalogLoading={catalogLoading}
+            catalogError={catalogError}
+            notFoundId={notFoundId}
+            onQueryChange={setQuery}
+            onTopicChange={setTopic}
+            onTagChange={setTag}
+            onClearNotFound={clearNotFound}
+            onOpen={openSheet}
+            onRandom={pickRandom}
+          />
+        }
+      />
+      <Route
+        path="/s/:id"
+        element={
+          <ReaderView
+            catalog={catalog}
+            catalogLoading={catalogLoading}
+            onBack={goHome}
+            onNotFound={markNotFound}
+          />
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 

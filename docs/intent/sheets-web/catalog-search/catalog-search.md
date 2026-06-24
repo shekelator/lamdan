@@ -22,3 +22,6 @@ Provide client-side discovery of source sheets by free-text query, topics, and t
 |---|---|---|
 | Single in-memory filter pass | Accepted | Simpler than introducing indexing for MVP scale |
 | Topic/tag from finite sets in catalog | Accepted | Enables precise filtering controls |
+
+## Cross-segment Notes
+- Randomized selection (View Shell) consumes this segment's filtered list output. The `filteredSheets` contract is shared: its membership must remain stable for consumers that depend on it.

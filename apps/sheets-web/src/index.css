@@ -82,11 +82,11 @@ li {
   color: var(--ink-soft);
 }
 
+/* Discovery view: a single centered column of catalog controls + cards. */
 .layout {
-  display: grid;
-  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
+  display: block;
+  max-width: 780px;
+  margin: 0 auto;
 }
 
 .catalog-panel,
@@ -128,9 +128,35 @@ li {
 
 .search-controls input:focus,
 .search-controls select:focus,
-.sheet-card:focus {
+.sheet-card:focus,
+.back-button:focus-visible,
+.just-pick-one:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
+}
+
+.just-pick-one {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #c9b892;
+  background: linear-gradient(180deg, #fffdf4, #f7ecd4);
+  color: var(--ink);
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.just-pick-one:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #bf8f5f;
+  box-shadow: 0 8px 18px rgba(80, 56, 27, 0.18);
+}
+
+.just-pick-one:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .status {
@@ -174,11 +200,6 @@ li {
   box-shadow: 0 8px 18px rgba(80, 56, 27, 0.18);
 }
 
-.sheet-card-active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 38%, transparent);
-}
-
 .sheet-card h2 {
   font-size: 1.12rem;
   margin: 0 0 0.35rem;
@@ -195,33 +216,54 @@ li {
   font-size: 0.8rem;
 }
 
+/* Reader view: a narrow centered column with a compact header bar. */
+.reader-shell {
+  max-width: 760px;
+}
+
+.reader-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--paper) 88%, white);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  flex: 0 0 auto;
+  border-radius: 10px;
+  border: 1px solid #c9b892;
+  background: #fffef9;
+  color: var(--ink);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 140ms ease;
+}
+
+.back-button:hover {
+  border-color: var(--accent);
+}
+
+.reader-bar-title h1 {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+}
+
+.reader-meta {
+  margin: 0.2rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
 .reader-panel {
   min-height: 520px;
   padding: 1.1rem 1.25rem;
-}
-
-.reader-placeholder {
-  margin: 0;
-  min-height: 360px;
-  border-radius: 14px;
-  border: 1px dashed #c9b692;
-  background: #fff8e8;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: var(--ink-soft);
-  padding: 1.2rem;
-}
-
-.sheet-reader-header h2 {
-  margin: 0;
-  font-size: clamp(1.35rem, 2.2vw, 2.1rem);
-}
-
-.sheet-reader-header p {
-  margin: 0.45rem 0 1rem;
-  color: var(--ink-soft);
-  font-size: 0.92rem;
 }
 
 .sheet-content {
@@ -258,15 +300,11 @@ li {
 }
 
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
+  .app-shell {
+    padding: 1.25rem 0.75rem 1.5rem;
   }
 
   .reader-panel {
     min-height: 0;
-  }
-
-  .reader-placeholder {
-    min-height: 220px;
   }
 }
