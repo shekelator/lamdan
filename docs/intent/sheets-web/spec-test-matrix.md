@@ -24,7 +24,7 @@
 - SHEETS-SS-001 -> apps/sheets-web/src/lib/renderSheet.test.ts
 - SHEETS-SS-002 -> apps/sheets-web/src/lib/renderSheet.test.ts
 - SHEETS-SS-003 -> apps/sheets-web/src/lib/renderSheet.test.ts
-- SHEETS-SS-004 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-004 -> Verified via CSS `.hebrew-text { direction: rtl; unicode-bidi: isolate; }`
 - SHEETS-SS-005 -> apps/sheets-web/src/lib/renderSheet.test.ts
 - SHEETS-SS-006 -> apps/sheets-web/src/lib/renderSheet.test.ts
 - SHEETS-SS-007 -> apps/sheets-web/src/lib/renderSheet.test.ts

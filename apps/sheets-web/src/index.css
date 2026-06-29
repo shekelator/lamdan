@@ -494,6 +494,7 @@ li {
 .hebrew-text {
   font-size: 1.15rem;
   direction: rtl;
+  unicode-bidi: isolate;
   margin-bottom: 0.75rem;
   padding: 0.75rem;
   background: var(--bg-color);

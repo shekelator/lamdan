@@ -94,7 +94,7 @@ describe('App', () => {
     renderAt('/s/justice-and-mercy')
 
     await screen.findByRole('heading', { name: 'Selected Sheet' })
-    expect(screen.getByRole('button', { name: /^back$/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^← back$/i })).toBeInTheDocument()
     expect(screen.queryByLabelText('Search')).not.toBeInTheDocument()
   })
 
@@ -181,7 +181,7 @@ describe('App', () => {
     fireEvent.click(screen.getByText('Shabbat Lights'))
     await screen.findByText('Candle blessing')
 
-    fireEvent.click(screen.getByRole('button', { name: /^back$/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^← back$/i }))
     await screen.findByText('Shabbat Lights')
     expect((screen.getByLabelText('Search') as HTMLInputElement).value).toBe('Shabbat')
     expect(screen.queryByText('Justice and Mercy')).not.toBeInTheDocument()
