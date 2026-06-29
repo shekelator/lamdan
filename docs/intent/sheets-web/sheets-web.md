@@ -7,6 +7,7 @@ Define the user-facing web experience for discovering and reading source sheets,
 - View Shell: routing, view composition, cross-view state retention, and randomized selection. Owns browser history and the shared state that survives navigation between views.
 - Catalog and Search: indexing metadata and interactive filtering. Produces the filtered list consumed by the Discovery view and by randomized selection.
 - Reader UI: rendering a selected sheet with bilingual-friendly typography and a compact reading-mode header.
+- Semantic Sheet Structure: consistent HTML structure and cleanup pipeline for imported sheets. Ensures visual consistency and reliable import from external sources (Google Docs, Sefaria).
 - Static Data Model: JSON catalog plus Markdown/HTML sheet files.
 
 ## Data Flow

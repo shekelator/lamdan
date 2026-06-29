@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="he-IL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamdan — Artistic Learning Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D46A27;
+            --primary-light: #F7EFE9;
+            --bg-color: #FDFBF7;
+            --text-color: #332C28;
+            --text-muted: #6E655F;
+            --border-color: #E8E2DA;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Assistant', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Artistic watercolor-like background accents */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 600px;
+            background: radial-gradient(circle at 80% 20%, rgba(214, 106, 39, 0.06) 0%, rgba(253, 251, 247, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .site-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--text-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .site-title span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        .hero-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            max-width: 540px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 15px rgba(214, 106, 39, 0.15);
+        }
+
+        .btn:hover {
+            background-color: #bd591d;
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            background-color: var(--primary-light);
+            border-radius: 12px;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(214, 106, 39, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-visual::after {
+            content: "למדן";
+            position: absolute;
+            font-family: var(--font-serif);
+            font-size: 10rem;
+            color: rgba(214, 106, 39, 0.03);
+            font-weight: 700;
+            user-select: none;
+        }
+
+        .featured-courses {
+            max-width: 1200px;
+            margin: 100px auto 60px auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 35px 30px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(214, 106, 39, 0.3);
+            box-shadow: 0 10px 30px rgba(51, 44, 40, 0.04);
+        }
+
+        .card-num {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-style: italic;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin: 40px auto;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="lamdan_logo.png" alt="Lamdan Logo" class="logo-img">
+            <div class="site-title">Artistic <span>Learning</span></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Cultivating deep insight through artistic design.</h1>
+                <p>Welcome to Lamdan. An experience designed to bridge immersive learning, creative inquiry, and traditional roots with elegant modern clarity.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            <div class="hero-visual">
+                <img src="lamdan_logo.png" alt="Lamdan Artistic Accent" style="max-width: 80%; opacity: 0.85;">
+            </div>
+        </section>
+
+        <section class="featured-courses">
+            <div class="section-header">
+                <h2>Browse Creative Tracks</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-num">01</span>
+                    <h3>Earthy Typography</h3>
+                    <p>Explore the interplay of serif structures, balanced layout geometry, and deliberate white space context.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">02</span>
+                    <h3>Visual Heritage</h3>
+                    <p>Integrating classical letterforms, traditional calligraphic nuances, and clean, fluid stroke dynamics.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">03</span>
+                    <h3>Curated Layouts</h3>
+                    <p>Mastering balance, modern clean presentation, and professional alignment principles across media.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

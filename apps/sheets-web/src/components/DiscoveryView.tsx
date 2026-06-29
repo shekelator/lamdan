@@ -57,6 +57,10 @@ export default function DiscoveryView({
   return (
     <div className="app-shell">
       <header className="masthead">
+        <div className="logo-container">
+          <img src="/lamdan_logo.png" alt="Lamdan Logo" className="logo-img" />
+          <div className="site-title">Lamdan <span>Learning</span></div>
+        </div>
         <p className="eyebrow">Source Sheet Library</p>
         <h1>Find the right sheet for today&apos;s learning.</h1>
         <p className="lead">
@@ -125,6 +129,8 @@ export default function DiscoveryView({
             </p>
           )}
 
+          <div className="section-divider" />
+
           <ul className="sheet-list">
             {filteredSheets.map((sheet) => (
               <li key={sheet.id}>
@@ -134,6 +140,7 @@ export default function DiscoveryView({
                   onClick={() => onOpen(sheet.id)}
                 >
                   <h2>{sheet.title}</h2>
+                  {sheet.author && <p className="author">By {sheet.author}</p>}
                   <p>{sheet.summary}</p>
                   <p className="meta">
                     Topic: {sheet.topics.join(', ')} | Tags: {sheet.tags.join(', ')}

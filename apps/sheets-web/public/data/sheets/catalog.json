@@ -8,7 +8,8 @@
     "languageSupport": ["english", "hebrew"],
     "format": "markdown",
     "filePath": "/data/sheets/justice-and-mercy.md",
-    "preferredDirection": "mixed"
+    "preferredDirection": "mixed",
+    "author": null
   },
   {
     "id": "shabbat-lights",
@@ -19,7 +20,20 @@
     "languageSupport": ["english", "hebrew"],
     "format": "html",
     "filePath": "/data/sheets/shabbat-lights.html",
-    "preferredDirection": "mixed"
+    "preferredDirection": "mixed",
+    "author": null
+  },
+  {
+    "id": "elul-5783",
+    "title": "Elul 5783 - א",
+    "summary": "Havruta discussion prompts for Elul: comparing passages, the forty-eight ways of acquiring Torah, and Psalm 27.",
+    "topics": ["Elul", "Torah"],
+    "tags": ["elul", "teshuvah", "psalm-27", "havruta"],
+    "languageSupport": ["english"],
+    "format": "html",
+    "filePath": "/data/sheets/elul-5783.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
   },
   {
     "id": "gratitude-everyday",
@@ -30,6 +44,19 @@
     "languageSupport": ["english"],
     "format": "markdown",
     "filePath": "/data/sheets/gratitude-everyday.md",
-    "preferredDirection": "ltr"
+    "preferredDirection": "ltr",
+    "author": null
+  },
+  {
+    "id": "havruta-kavod",
+    "title": "Havruta #1 - Kavod/כבוד",
+    "summary": "Exploring honor and human significance through Pirkei Avot, R. Shlomo Wolbe, R. Kook, and I Corinthians.",
+    "topics": ["Ethics", "Havruta", "Human Dignity"],
+    "tags": ["kavod", "honor", "tzelem-elohim", "purpose", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-kavod.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
   }
 ]

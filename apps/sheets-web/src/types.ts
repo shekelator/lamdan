@@ -11,6 +11,7 @@ export interface SheetSummary {
   format: SheetFormat
   filePath: string
   preferredDirection?: SheetDirection
+  author?: string | null
 }
 
 export interface RenderedSheet {

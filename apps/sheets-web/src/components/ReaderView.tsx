@@ -98,7 +98,7 @@ export default function ReaderView({
     <div className="app-shell reader-shell">
       <header className="reader-bar">
         <button type="button" className="back-button" onClick={onBack}>
-          Back
+          ← Back
         </button>
         <div className="reader-bar-title">
           <h1>{sheet.title}</h1>

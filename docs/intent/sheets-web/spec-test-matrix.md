@@ -21,6 +21,13 @@
 - SHEETS-VS-006 -> apps/sheets-web/src/lib/pickRandom.test.ts, apps/sheets-web/src/App.test.tsx
 - SHEETS-VS-007 -> apps/sheets-web/src/App.test.tsx
 - SHEETS-VS-009 -> apps/sheets-web/src/App.test.tsx
+- SHEETS-SS-001 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-002 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-003 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-004 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-005 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-006 -> apps/sheets-web/src/lib/renderSheet.test.ts
+- SHEETS-SS-007 -> apps/sheets-web/src/lib/renderSheet.test.ts
 
 ## Manual
 

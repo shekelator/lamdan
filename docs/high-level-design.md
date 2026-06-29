@@ -4,7 +4,7 @@
 Build a client-side web application that presents study source sheets stored as Markdown or HTML files, with fast discovery by topic and tags, a responsive reading experience across desktop and mobile devices, and shareable links that open an individual sheet directly.
 
 ## Scope
-- In scope: static hosting compatibility, client-side search/filter, bilingual presentation (English/Hebrew), responsive layout, local content catalog, URL-routed views with shareable per-sheet links, randomized sheet selection, preservation of discovery state across navigation.
+- In scope: static hosting compatibility, client-side search/filter, bilingual presentation (English/Hebrew), responsive layout, local content catalog, URL-routed views with shareable per-sheet links, randomized sheet selection, preservation of discovery state across navigation, consistent sheet presentation via semantic HTML structure.
 - Out of scope (initial): authentication, authoring workflow, server-side indexing, collaborative editing.
 
 ## Primary Users
@@ -23,6 +23,7 @@ Build a client-side web application that presents study source sheets stored as 
 - Discovery and reading are separate modes, not a simultaneous workspace. The discovery view omits reading chrome; the reader view omits discovery controls.
 - Reach for a library when hand-rolling would repeat work or risk correctness. Standard concerns (routing, browser history, deep links) are served by a router, not bespoke wiring.
 - Route count is expected to grow over time; the shell and router scale to additional views without restructuring.
+- Sheet consistency is a core value: all sheets render with uniform typography, spacing, and visual treatment regardless of origin.
 
 ## Architecture Overview
 - Static React app loads a JSON catalog and sheet files from static assets.
