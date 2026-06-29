@@ -58,5 +58,29 @@
     "filePath": "/data/sheets/havruta-kavod.html",
     "preferredDirection": "ltr",
     "author": "David Nichol"
+  },
+  {
+    "id": "havruta-bitachon",
+    "title": "Havruta #2 - Bitachon/בטחון",
+    "summary": "Exploring trust in God through Psalms, Jeremiah, Isaiah, Matthew, and Orchot Tzadikim.",
+    "topics": ["Ethics", "Havruta", "Trust"],
+    "tags": ["bitachon", "trust", "faith", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-bitachon.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
+  },
+  {
+    "id": "havruta-yirah",
+    "title": "Havruta #4 - Yir'ah/יראה",
+    "summary": "Exploring fear and awe of God through Deuteronomy, Psalms, Orchot Tzadikim, Matthew, and Shulhan Arukh.",
+    "topics": ["Ethics", "Havruta", "Fear of God"],
+    "tags": ["yirah", "fear", "awe", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-yirah.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
   }
 ]

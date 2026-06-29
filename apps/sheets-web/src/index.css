@@ -417,12 +417,6 @@ li {
   line-height: 1.2;
 }
 
-.sheet-author {
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-
 .introduction {
   margin-bottom: 2rem;
   padding: 1.25rem;
@@ -457,6 +451,12 @@ li {
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--line);
+}
+
+/* Small caps for divine names (LORD, GOD, etc.) */
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
 }
 
 .source-header a {
@@ -551,6 +551,66 @@ li {
 .question em {
   font-style: italic;
   color: var(--primary-color);
+}
+
+/* Source info: contextual citation/description for a source */
+.source-info {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-color);
+  border-radius: 6px;
+  border-left: 2px solid var(--line);
+  margin-left: 0.5rem;
+}
+
+.source-info p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.source-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.source-info a:hover {
+  text-decoration: underline;
+}
+
+/* Practice block: actionable exercises */
+.practice-block {
+  background: linear-gradient(135deg, #f0f7f4, #fff);
+  border: 1px solid rgba(52, 144, 108, 0.2);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  border-top: 2px solid #2e8b57;
+  border-bottom: 2px solid #2e8b57;
+}
+
+.practice-block-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2e8b57;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #2e8b57;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.practice-block p {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.practice-block p:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 900px) {
