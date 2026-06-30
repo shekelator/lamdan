@@ -55,17 +55,19 @@ export default function DiscoveryView({
   }
 
   return (
-    <div className="app-shell">
+    <div className="app-shell discovery-view">
+      {/* Subtle background watermark */}
+      <img src="/lamdan_transparent.png" alt="" className="discovery-watermark" aria-hidden="true" />
+
       <header className="masthead">
         <div className="logo-container">
-          <img src="/lamdan_logo.png" alt="Lamdan Logo" className="logo-img" />
+          <img src="/lamdan_transparent.png" alt="Lamdan Logo" className="logo-img" />
           <div className="site-title">Lamdan <span>Learning</span></div>
         </div>
         <p className="eyebrow">Source Sheet Library</p>
-        <h1>Find the right sheet for today&apos;s learning.</h1>
+        <h1>Find the right study for today&apos;s learning.</h1>
         <p className="lead">
-          Browse by topic and tags, then read beautifully rendered Markdown or HTML sheets on any
-          device.
+          Browse by topic and tags to find a source sheet for study on your own or with a partner.
         </p>
       </header>
 

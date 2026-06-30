@@ -25,7 +25,7 @@ body {
   min-height: 100vh;
   color: var(--ink);
   font-family: var(--font-sans);
-  background-color: var(--bg-color);
+  background-color: transparent;
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
@@ -43,8 +43,28 @@ body::before {
   pointer-events: none;
 }
 
+/* Discovery page: subtle Lamdan logo watermark in background */
+.discovery-view .discovery-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(55vw, 500px);
+  height: auto;
+  opacity: 0.05;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Larger logo for discovery view header */
+.discovery-view .logo-img {
+  height: 65px;
+}
+
 #root {
   min-height: 100vh;
+  background-color: var(--bg-color);
 }
 
 h1,
