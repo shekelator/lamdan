@@ -1,0 +1,86 @@
+[
+  {
+    "id": "justice-and-mercy",
+    "title": "Justice and Mercy",
+    "summary": "Texts on balancing דין and רחמים in leadership and community life.",
+    "topics": ["Ethics", "Leadership"],
+    "tags": ["middot", "community", "teshuvah"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "markdown",
+    "filePath": "/data/sheets/justice-and-mercy.md",
+    "preferredDirection": "mixed",
+    "author": null
+  },
+  {
+    "id": "shabbat-lights",
+    "title": "Shabbat Lights",
+    "summary": "A practical and reflective sheet on welcoming Shabbat through light.",
+    "topics": ["Shabbat", "Practice"],
+    "tags": ["ritual", "home", "preparation"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/shabbat-lights.html",
+    "preferredDirection": "mixed",
+    "author": null
+  },
+  {
+    "id": "elul-5783",
+    "title": "Elul 5783 - א",
+    "summary": "Havruta discussion prompts for Elul: comparing passages, the forty-eight ways of acquiring Torah, and Psalm 27.",
+    "topics": ["Elul", "Torah"],
+    "tags": ["elul", "teshuvah", "psalm-27", "havruta"],
+    "languageSupport": ["english"],
+    "format": "html",
+    "filePath": "/data/sheets/elul-5783.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
+  },
+  {
+    "id": "gratitude-everyday",
+    "title": "Everyday Gratitude",
+    "summary": "Short morning and evening sources that cultivate daily gratitude.",
+    "topics": ["Prayer", "Mindfulness"],
+    "tags": ["brachot", "daily", "focus"],
+    "languageSupport": ["english"],
+    "format": "markdown",
+    "filePath": "/data/sheets/gratitude-everyday.md",
+    "preferredDirection": "ltr",
+    "author": null
+  },
+  {
+    "id": "havruta-kavod",
+    "title": "Havruta #1 - Kavod/כבוד",
+    "summary": "Exploring honor and human significance through Pirkei Avot, R. Shlomo Wolbe, R. Kook, and I Corinthians.",
+    "topics": ["Ethics", "Havruta", "Human Dignity"],
+    "tags": ["kavod", "honor", "tzelem-elohim", "purpose", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-kavod.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
+  },
+  {
+    "id": "havruta-bitachon",
+    "title": "Havruta #2 - Bitachon/בטחון",
+    "summary": "Exploring trust in God through Psalms, Jeremiah, Isaiah, Matthew, and Orchot Tzadikim.",
+    "topics": ["Ethics", "Havruta", "Trust"],
+    "tags": ["bitachon", "trust", "faith", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-bitachon.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
+  },
+  {
+    "id": "havruta-yirah",
+    "title": "Havruta #4 - Yir'ah/יראה",
+    "summary": "Exploring fear and awe of God through Deuteronomy, Psalms, Orchot Tzadikim, Matthew, and Shulhan Arukh.",
+    "topics": ["Ethics", "Havruta", "Fear of God"],
+    "tags": ["yirah", "fear", "awe", "mussar"],
+    "languageSupport": ["english", "hebrew"],
+    "format": "html",
+    "filePath": "/data/sheets/havruta-yirah.html",
+    "preferredDirection": "ltr",
+    "author": "David Nichol"
+  }
+]
